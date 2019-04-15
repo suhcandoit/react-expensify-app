@@ -9,8 +9,8 @@ import 'react-dates/initialize';
 
 import configurationStore from '../src/store/configureStore';
 import AppRouter from './routers/AppRouter';
-import { addExpense, editExpense } from '../src/actions/expenses';
-import { setTextFilter } from '../src/actions/filters';
+//import { addExpense, editExpense } from '../src/actions/expenses';
+//import { setTextFilter } from '../src/actions/filters';
 
 const store = configurationStore();
 
@@ -18,7 +18,7 @@ const store = configurationStore();
 //store.dispatch(addExpense({ description: 'Gas bill', createdAt: 1000 }));
 //store.dispatch(addExpense({ description: 'Rent', amount: 109500 }));
 
-store.dispatch(setTextFilter('bill'));
+//store.dispatch(setTextFilter('bill'));
 
 // const state = store.getState();
 // const visibleExpense = getVisibleExpenses(state.expenses, state.filters);
