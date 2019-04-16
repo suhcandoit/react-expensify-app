@@ -10,9 +10,9 @@ exports[`Should render ExpenseList items 1`] = `
     </h3>
   </Link>
   <p>
-    100
+    $1.00
      - 
-    0
+    December 31st 1969
   </p>
 </div>
 `;
