@@ -9,6 +9,8 @@ import 'react-dates/initialize';
 
 import configurationStore from '../src/store/configureStore';
 import AppRouter from './routers/AppRouter';
+import '../../expensify-app/src/firebase/firebase';
+
 // import { addExpense, editExpense } from '../src/actions/expenses';
 // import { setTextFilter } from '../src/actions/filters';
 
