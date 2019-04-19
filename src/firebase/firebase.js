@@ -10,8 +10,12 @@ const config = {
   };
   
   firebase.initializeApp(config);
+  
   const database = firebase.database();
-  export { firebase, database as default };
+  
+  const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
+  export { firebase, googleAuthProvider, database as default };
 
   // database.ref('expenses').push({
   //   description: 'Skiing',
@@ -44,6 +48,7 @@ const config = {
   // expenseRef.on("child_added", (snapshot) => {
   //   console.log(snapshot.key, snapshot.val());
   // });
+  
   // expenseRef.on("value", (snapshot) => {
   //   const expenses = [];
   //   snapshot.forEach((data) => {
