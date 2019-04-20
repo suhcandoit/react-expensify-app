@@ -8,17 +8,17 @@ import 'react-dates/lib/css/_datepicker.css';
 import 'react-dates/initialize';
 
 import configurationStore from '../src/store/configureStore';
-import AppRouter, {history} from './routers/AppRouter';
+import AppRouter, { history } from './routers/AppRouter';
 import { firebase } from '../src/firebase/firebase';
-import { addExpense, editExpense, startSetExpenses } from '../src/actions/expenses';
+import { startSetExpenses } from '../src/actions/expenses';
 
-// import { setTextFilter } from '../src/actions/filters';
+import { login, logout } from '../src/actions/auth';
 
 const store = configurationStore();
 
-store.dispatch(addExpense({ description: 'Water bill', amount: 4500 }));
-store.dispatch(addExpense({ description: 'Gas bill', createdAt: 1000 }));
-store.dispatch(addExpense({ description: 'Rent', amount: 109500 }));
+//store.dispatch(addExpense({ description: 'Water bill', amount: 4500 }));
+//store.dispatch(addExpense({ description: 'Gas bill', createdAt: 1000 }));
+//store.dispatch(addExpense({ description: 'Rent', amount: 109500 }));
 
 //store.dispatch(setTextFilter('bill'));
 
@@ -31,17 +31,30 @@ const jsx = (
     </Provider>
 );
 
-ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
+let hasRender = false;
+const renderApp = () => {
+    if(!hasRender) {
+        ReactDOM.render(jsx, document.getElementById('app'));
+        hasRender = true;
+    }
+}
 
-store.dispatch(startSetExpenses()).then(() => {
-    ReactDOM.render(jsx, document.getElementById('app'));
-});
+ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        console.log('Log in');
+        console.log("user id:", user.uid);
+        store.dispatch(login(user.uid));
+        store.dispatch(startSetExpenses()).then(() => {
+            renderApp();
+            if (history.location.pathname === '/'){
+                history.push('/dashboard');
+            }
+        });
+        
     } else {
-        console.log('Log out');
-        //history.push('/')
+        store.dispatch(logout());
+        renderApp();
+        history.push('/')
     }
   });

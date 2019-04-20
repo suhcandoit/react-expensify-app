@@ -1,5 +1,37 @@
 import database from '../firebase/firebase';
 
+
+export const editExpense = (id, updates) => {
+    return({
+        type:'EDIT_EXPENSE',
+        id,
+        updates      
+    })
+}
+
+export const startEditExpense = (id, updates) => {
+    return (dispath) => {
+        return database.ref(`expenses/${id}`).update(updates).then(() => {
+            dispath(editExpense(id, updates))
+        })
+    }
+}
+
+export const removeExpense = ({id} = {}) => {
+    return({
+        type:'REMOVE_EXPENSE',
+        id
+    })
+}
+
+export const startRemoveExpense = ({id} = {}) => {
+    return ((dispath) => {        
+        return database.ref(`expenses/${id}`).remove().then(() => {
+            dispath(removeExpense({id}))
+        })
+    }); 
+}
+
 export const addExpense = (expense) => ({ 
     type:'ADD_EXPENSE', 
     expense 
@@ -17,21 +49,6 @@ export const startAddExpense = (expenseData = {}) => {
         });
     });
 };
-
-export const editExpense = (id, updates) => {
-    return({
-        type:'EDIT_EXPENSE',
-        id,
-        updates      
-    })
-}
-
-export const removeExpense = ({id} = {}) => {
-    return({
-        type:'REMOVE_EXPENSE',
-        id
-    })
-}
 
 // SET_EXPENSES
 export const setExpenses = (expenses) => {

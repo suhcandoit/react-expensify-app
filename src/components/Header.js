@@ -9,19 +9,13 @@ export const Header = ({ startLogOut }) => (
         <NavLink exact to="/" activeClassName='selected'>Home</NavLink>
         <NavLink to="/create" activeClassName='selected'>Add Expense</NavLink>
         <NavLink to="/help" activeClassName='selected'>Help Page</NavLink>
-        <button onClick={startLogOut}>Logout</button>
+        <button onClick={ startLogOut }>Logout</button>
     </header>
 );
 
 const mapDispatchToProps = (dispatch) => ({
     startLogOut: () => dispatch(startLogOut())
-  });
+});
   
 export default connect(undefined, mapDispatchToProps)(Header);
 
-// const mapDispatchToProps = (dispatch) => 
-// ({
-//     startLogout: () => dispatch(startLogout())
-// })
-
-// export default connect(undefined, mapDispatchToProps)(Header);

@@ -102,6 +102,15 @@ const config = {
   //   console.log(`Failed to update with ${error}`);
   // })
 
+//  export const removeFB = () => {
+//   database.ref('expenses/-LchzKLVucFrpIj9x9_Q')
+//   .remove()
+//   .then(()=>{
+//     console.log('-LchzKLVucFrpIj9x9_Q is removed');
+//   }).catch((error) => {
+//     console.log('Fail to remove -LchzKLVucFrpIj9x9_Q ${error}');
+//   })
+//  }
 // database.ref('isSingle')
 //   .remove()
 //   .then(()=>{
