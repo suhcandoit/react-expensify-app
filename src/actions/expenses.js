@@ -10,8 +10,9 @@ export const editExpense = (id, updates) => {
 }
 
 export const startEditExpense = (id, updates) => {
-    return (dispath) => {
-        return database.ref(`expenses/${id}`).update(updates).then(() => {
+    return (dispath, getState) => {
+        const uid = getState().auth.uid; 
+        return database.ref(`users/${uid}/expenses/${id}`).update(updates).then(() => {
             dispath(editExpense(id, updates))
         })
     }
@@ -25,8 +26,9 @@ export const removeExpense = ({id} = {}) => {
 }
 
 export const startRemoveExpense = ({id} = {}) => {
-    return ((dispath) => {        
-        return database.ref(`expenses/${id}`).remove().then(() => {
+    return ((dispath, getState) => {        
+        const uid = getState().auth.uid; 
+        return database.ref(`users/${uid}/expenses/${id}`).remove().then(() => {
             dispath(removeExpense({id}))
         })
     }); 
@@ -38,11 +40,12 @@ export const addExpense = (expense) => ({
 })
 
 export const startAddExpense = (expenseData = {}) => {
-    return((dispath) => {
+    return((dispath, getState) => {
+        const uid = getState().auth.uid;
         const {description='', note='', amount=0, createdAt=0} = expenseData;
         const expense = {description, note, amount, createdAt}
         
-        return database.ref('expenses').push(expense).then((ref) => {
+        return database.ref(`users/${uid}/expenses`).push(expense).then((ref) => {
             dispath(addExpense({
                 id: ref.key,
                 ...expense}));
@@ -59,8 +62,9 @@ export const setExpenses = (expenses) => {
 }
 
 export const startSetExpenses = () => {
-    return((dispath) => {        
-        return database.ref('expenses').once('value').then((snapshot) => {
+    return((dispath, getState) => {     
+        const uid = getState().auth.uid;   
+        return database.ref(`users/${uid}/expenses`).once('value').then((snapshot) => {
             const expenses = [];
             snapshot.forEach((data) => {
                 expenses.push({
