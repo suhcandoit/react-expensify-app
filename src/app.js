@@ -11,12 +11,13 @@ import configurationStore from '../src/store/configureStore';
 import AppRouter, { history } from './routers/AppRouter';
 import { firebase } from '../src/firebase/firebase';
 import { startSetExpenses } from '../src/actions/expenses';
+import LoadingPage from './components/LoadingPage';
 
 import { login, logout } from '../src/actions/auth';
 
 const store = configurationStore();
 
-//store.dispatch(addExpense({ description: 'Water bill', amount: 4500 }));
+//store.dispatch(addExpense({ description: 'Water bill', : 4500 }));
 //store.dispatch(addExpense({ description: 'Gas bill', createdAt: 1000 }));
 //store.dispatch(addExpense({ description: 'Rent', amount: 109500 }));
 
@@ -39,7 +40,7 @@ const renderApp = () => {
     }
 }
 
-ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
+ReactDOM.render(<LoadingPage />, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
